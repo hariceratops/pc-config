@@ -30,12 +30,12 @@ wget
 rsync
 stow
 
-# Dev
+# Dev. node and npm are deliberately absent: they come from nvm, so the apt
+# packages would shadow the version actually in use.
 git
 make
 cmake
 gcc
-npm
 
 # github CLI
 gh
