@@ -82,8 +82,18 @@ export ZSH="$HOME/.oh-my-zsh"
 #     zsh-autosuggestions
 #     zsh-syntax-highlighting
 #   )
-# Guarded for the same reason as the sources further down: a partially
-# provisioned machine should degrade, not error on every prompt.
+
+# Installed by scripts/install_shell_tools.sh, not by a package manager.
+# Guarded so a machine that has not run it yet still gets a usable shell
+# instead of an error on every prompt.
+#
+# Must precede oh-my-zsh: autocomplete adds its Completions/ to fpath at source
+# time, then reuses whatever dump oh-my-zsh's compinit wrote. If oh-my-zsh runs
+# first, that dump lacks _autocomplete__unambiguous and friends, and every Tab
+# fails with "command not found".
+[ -f ~/tools/zsh-autocomplete/zsh-autocomplete.plugin.zsh ] \
+    && source ~/tools/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
 [ -f "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
 
 # User configuration
@@ -118,13 +128,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# Installed by scripts/install_shell_tools.sh, not by a package manager.
-# Guarded so a machine that has not run it yet still gets a usable shell
-# instead of an error on every prompt.
 [ -f ~/tools/powerlevel10k/powerlevel10k.zsh-theme ] \
     && source ~/tools/powerlevel10k/powerlevel10k.zsh-theme
-[ -f ~/tools/zsh-autocomplete/zsh-autocomplete.plugin.zsh ] \
-    && source ~/tools/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # zsh-autocomplete binds menu-search and recent-paths before it creates them,
 # and zsh-syntax-highlighting warns about every bound-but-undefined widget it
