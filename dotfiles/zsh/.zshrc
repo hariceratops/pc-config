@@ -82,6 +82,7 @@ export ZSH="$HOME/.oh-my-zsh"
 #     zsh-autosuggestions
 #     zsh-syntax-highlighting
 #   )
+plugins=(zsh-autosuggestions)
 
 # Installed by scripts/install_shell_tools.sh, not by a package manager.
 # Guarded so a machine that has not run it yet still gets a usable shell
@@ -91,6 +92,14 @@ export ZSH="$HOME/.oh-my-zsh"
 # time, then reuses whatever dump oh-my-zsh's compinit wrote. If oh-my-zsh runs
 # first, that dump lacks _autocomplete__unambiguous and friends, and every Tab
 # fails with "command not found".
+#
+# zasync is autocomplete's async helper, cloned into the cache on first run.
+# Autocomplete probes for it with `autoload +X zasync`, which fails but leaves
+# a path-less stub behind; its later autoload by path is then a no-op, and every
+# `zasync` call silently does nothing - no live menu. Autoloading it from fpath
+# first makes the probe succeed.
+[ -f ~/.cache/zsh/zasync/zasync ] \
+    && fpath+=(~/.cache/zsh/zasync) && autoload -Uz zasync
 [ -f ~/tools/zsh-autocomplete/zsh-autocomplete.plugin.zsh ] \
     && source ~/tools/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
