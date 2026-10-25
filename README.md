@@ -12,6 +12,7 @@ bootstrap and stow mechanics.
 | Tool | Page | What's in it |
 |---|---|---|
 | tmux | [`dotfiles/tmux/.config/tmux/README.md`](dotfiles/tmux/.config/tmux/README.md) | Keybindings, themes, agent alerts, workspace templates |
+| ranger | [`dotfiles/ranger/.config/ranger/README.md`](dotfiles/ranger/.config/ranger/README.md) | Archive extract / browse / compress, nvim as editor |
 
 ## Repo structure
 
@@ -33,6 +34,7 @@ pc-config/
 │   ├── tmux/           # → ~/.config/tmux/ (has its own README — keybindings, templates)
 │   ├── rofi/           # → ~/.config/rofi/
 │   ├── taskwarrior/    # → ~/.taskrc
+│   ├── ranger/         # → ~/.config/ranger/ (extract, compress, browse archives)
 │   ├── vscode/         # → VS Code settings.json + extension list (WSL only, see vscode.sh)
 │   └── windows-terminal/ # → Windows Terminal settings.json (WSL only, see windows-terminal.sh)
 └── scripts/            # install_shell_tools.sh, plus utilities that list installed
@@ -79,7 +81,7 @@ Use `stow.sh` for everyday operations, or the raw stow commands below for target
 | Task | Command |
 |---|---|
 | Stow a single package | `stow --dir=dotfiles --target=$HOME nvim` |
-| Stow all CLI packages | `stow --dir=dotfiles --target=$HOME bash git zsh nvim vim tmux taskwarrior` |
+| Stow all CLI packages | `stow --dir=dotfiles --target=$HOME bash git zsh nvim vim tmux taskwarrior ranger` |
 | Unstow a package | `stow --dir=dotfiles --target=$HOME -D nvim` |
 | Restow (refresh symlinks) | `stow --dir=dotfiles --target=$HOME -R nvim` |
 | Dry-run (preview changes) | `stow --dir=dotfiles --target=$HOME -n -v nvim` |
