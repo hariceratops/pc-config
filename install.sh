@@ -35,13 +35,16 @@ fi
 # machines built a month apart do not match. That is the hole nix is meant to
 # close later; until then they live here.
 
-# neovim: apt's version is too old for this config
+# neovim: apt's version is too old for this config. Lands in ~/tools because
+# that is where .zshrc puts it on PATH.
 NVIM_URL=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest \
     | grep '"browser_download_url"' \
     | grep 'nvim-linux-x86_64\.tar\.gz"' \
     | cut -d'"' -f4)
 curl -L "$NVIM_URL" -o /tmp/nvim.tar.gz
-sudo tar -xzf /tmp/nvim.tar.gz -C /usr/local --strip-components=1
+mkdir -p "$HOME/tools"
+rm -rf "$HOME/tools/nvim-linux-x86_64"
+tar -xzf /tmp/nvim.tar.gz -C "$HOME/tools"
 rm /tmp/nvim.tar.gz
 
 if ! command -v rustup >/dev/null 2>&1; then
