@@ -24,6 +24,14 @@ local M = {
       'tsx',
       'javascript'
     })
+
+    -- nvim-treesitter's main branch only installs parsers; highlighting must be started per buffer.
+    -- pcall: filetypes without an installed parser would otherwise error.
+    vim.api.nvim_create_autocmd('FileType', {
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
+    })
   end,
 }
 
