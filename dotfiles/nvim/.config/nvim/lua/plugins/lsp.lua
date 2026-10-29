@@ -9,7 +9,7 @@ local M = {
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
     local required_langauge_servers = { 'clangd', 'rust_analyzer', 'pyright', 'ts_ls', 'zls', 'lua_ls' }
 
-    vim.lsp.set_log_level('trace')
+    vim.lsp.log.set_level('warn')
     vim.lsp.config('*', { capabilities = capabilities })
     vim.lsp.config('lua_ls', {
       settings = {
