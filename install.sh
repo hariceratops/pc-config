@@ -51,6 +51,12 @@ if ! command -v rustup >/dev/null 2>&1; then
     curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
 fi
 
+# nvim-treesitter's main branch builds parsers with the CLI and needs
+# 0.26.1 or later, newer than apt ships.
+if [ ! -x "$HOME/.cargo/bin/tree-sitter" ]; then
+    "$HOME/.cargo/bin/cargo" install tree-sitter-cli
+fi
+
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
         "" --unattended
